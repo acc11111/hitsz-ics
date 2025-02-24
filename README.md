@@ -1,5 +1,10 @@
 # 简介
 通过使用官网的日程获取课程信息并转换为ics文件
+目前加载的时间是2025秋季学期，可以在load_data.py内修改，相关的代码如下：
+```
+start_date = datetime(2025, 2, 24)
+end_date = datetime(2025, 6, 22)
+```
 # 使用
 ### 获取ics文件
 GET IT！
