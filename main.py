@@ -32,7 +32,7 @@ def convert_to_ics(data):
         event.location = course["NR"]
         calendar.events.add(event)
     # print(calendar)
-    with open('courses.ics', 'w', encoding='utf-8') as f:
+    with open('courses.ics', 'w', encoding='utf-8') as f: 
         f.writelines(calendar)
 
 convert_to_ics(data)
