@@ -24,7 +24,7 @@ def convert_to_ics(data):
     beijing_tz = pytz.timezone('Asia/Shanghai')
     for course in data:
         event = Event()
-        event.name = re.sub(r'(?<!^:)[^\u4e00-\u9fa5:]', '', course["BT"]).rstrip(':')
+        event.name = course["BT"]
         for item in time_map:
             if item["节次"] == course["KSJC"]:
                 event.begin = beijing_tz.localize(datetime.strptime(course["SJ"], "%Y-%m-%d") + timedelta(hours=datetime.strptime(item["开始时间"], "%H:%M").time().hour, minutes=datetime.strptime(item["开始时间"], "%H:%M").time().minute))
