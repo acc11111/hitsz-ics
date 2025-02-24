@@ -11,6 +11,9 @@ GET IT！
 ```bash
 git clone https://github.com/acc11111/hitsz-ics.git
 ```
+```bash
+cd hitsz-ics
+```
 配置环境
 ```bash
 pip install -r requirements.txt

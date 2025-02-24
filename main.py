@@ -16,7 +16,7 @@ logined_session = login(username,password)
 data = load_data(logined_session)
 
 # 读取节次时间映射
-time_map = json.load(open('section_time_mappings.json'))
+time_map = json.load(open('section_time_mappings.json', encoding='utf-8'))
 
 # 转换为ics
 def convert_to_ics(data):
@@ -32,7 +32,7 @@ def convert_to_ics(data):
         event.location = course["NR"]
         calendar.events.add(event)
     # print(calendar)
-    with open('courses.ics', 'w') as f:
+    with open('courses.ics', 'w', encoding='utf-8') as f:
         f.writelines(calendar)
 
 convert_to_ics(data)
