@@ -5,6 +5,12 @@
 start_date = datetime(2025, 2, 24)
 end_date = datetime(2025, 6, 22)
 ```
+同时添加了提前15分钟提醒功能后会出现
+```bash
+ FutureWarning: Behaviour of str(Component) will change in version 0.9 to only return a short description, NOT the ics representation. Use the explicit Component.serialize() to get the ics representation.
+  warnings.warn(
+```
+但是问题不大，还是可以正常使用
 # 使用
 ### 获取ics文件
 GET IT！
