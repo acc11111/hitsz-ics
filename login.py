@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import sys
+from encryptPassword import encrypt_password
 
-def login(username, password, code=None):
+def login(username, password):
     print("logging...")
     session = requests.Session()
     default_request_header = {
@@ -12,47 +13,48 @@ def login(username, password, code=None):
 
     try:
         # 访问初始页面
-        session.get("http://jw.hitsz.edu.cn/cas")
 
-        # 请求登录页面
-        response = session.get(
-            "https://ids.hit.edu.cn/authserver/combinedLogin.do?type=IDSUnion&appId=ff2dfca3a2a2448e9026a8c6e38fa52b&success=http%3A%2F%2Fjw.hitsz.edu.cn%2FcasLogin"
-        )
-        doc1 = BeautifulSoup(response.text, 'html.parser')
+        ids_url = "https://ids.hit.edu.cn/authserver/login?service=http%3A%2F%2Fjw.hitsz.edu.cn%2FcasLogin"
 
-        # 提取表单数据
-        form = doc1.select_one("#authZForm")
-        url = "https://sso.hitsz.edu.cn:7002" + form['action']
-        client_id = doc1.select_one("input[name=client_id]")['value']
-        scope = doc1.select_one("input[name=scope]")['value']
-        state = doc1.select_one("input[name=state]")['value']
+        # 获取ids的登陆界面信息
+        login_page = session.get(ids_url)
+        soup = BeautifulSoup(login_page.text, 'html.parser')
 
-        # 准备提交的数据
-        payload = {
-            'action': 'authorize',
-            'response_type': 'code',
-            'redirect_uri': 'https://ids.hit.edu.cn/authserver/callback',
-            'client_id': client_id,
-            'scope': scope,
-            'state': state,
-            'username': username,
-            'password': password
+        # 获取exection的值
+        execution_element = soup.find('input', {'id': 'execution'})
+        execution = execution_element['value'] if execution_element else None
+
+        # 获取salt的值
+        salt_element = soup.find('input', {'id': 'pwdEncryptSalt'})
+        salt = salt_element['value'] if salt_element else None
+
+        print(f"Execution: {execution}")
+        print(f"Salt: {salt}")
+
+        # 准备需要提交的登录数据
+        login_data = {
+            "username": username,
+            "password": encrypt_password(password, salt),
+            "captcha": "",
+            "_eventId": "submit",
+            "cllt": "userNameLogin",
+            "dllt": "generalLogin",
+            "lt": "",
+            "execution": execution
         }
 
-        # 提交表单
-        resp3 = session.post(url, data=payload)
-        login = resp3.url.endswith("/authentication/main")
-        cookies = session.cookies.get_dict()
+        # 发送登录请求
+        login_response = session.post(ids_url, data=login_data)
+        login = login_response.url.endswith("/authentication/main")
 
         if not login:
             print("登录失败:", login)
-            print("Cookies:", cookies)
             print("即将终止脚本，请重新运行！")
             sys.exit(1)
 
         else:
             print("登录成功:", login)
-            print("Cookies:", cookies)
+
 
         return session
     
