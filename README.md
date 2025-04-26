@@ -39,7 +39,7 @@ pip install -r requirements.txt
 生成 ICS 文件：
 
 ```bash
-python main.py
+python src/main.py
 ```
 
 ### 2. 导入到日历应用
