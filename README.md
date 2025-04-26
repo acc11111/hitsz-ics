@@ -1,57 +1,60 @@
-# 简介
+# HITSZ-ICS: 哈工大（深圳）课程表生成工具
 
-通过使用官网的日程获取课程信息并转换为 ics 文件
-目前加载的时间是 2025 秋季学期，可以在 load_data.py 内修改，相关的代码如下：
+## 简介
 
-```
+这是一个自动生成哈尔滨工业大学（深圳）课程表 ICS 文件的工具，可直接导入到各类日历应用中。
+
+主要功能：
+
+-   自动从官网获取课程信息并转换为标准 ICS 日历文件
+-   支持自定义学期时间段
+-   添加课程提前 15 分钟提醒功能
+-   自动设置课程地点为哈工大深圳校区
+-   支持通过邮件自动发送 ICS 文件
+
+当前默认加载的是 2025 年秋季学期，时间范围可在 `load_data.py` 中修改：
+
+```python
 start_date = datetime(2025, 2, 24)
 end_date = datetime(2025, 6, 22)
 ```
 
-同时添加了提前 15 分钟提醒功能后会出现
-添加了锁定地址为哈尔滨工业大学深圳校区
+## 使用方法
 
-```bash
- FutureWarning: Behaviour of str(Component) will change in version 0.9 to only return a short description, NOT the ics representation. Use the explicit Component.serialize() to get the ics representation.
-  warnings.warn(
-```
+### 1. 获取并运行项目
 
-但是问题不大，还是可以正常使用
-
-# 使用
-
-### 获取 ics 文件
-
-GET IT！
+克隆仓库：
 
 ```bash
 git clone https://github.com/acc11111/hitsz-ics.git
-```
-
-```bash
 cd hitsz-ics
 ```
 
-配置环境
+安装依赖：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-GOGOGO!
+生成 ICS 文件：
 
-```
+```bash
 python main.py
 ```
 
-### 加载至 iPhone
+### 2. 导入到日历应用
 
-目前本项目已经支持使用 email 的 pass 来实现自动发送
+#### 自动邮件发送（推荐）
 
-> 网络上有很多教程的，比较方便的是发送邮件
+本项目支持使用邮箱账号以及 PASS 自动发送 ICS 文件
 
-S1：iPhone 的邮件 APP 绑定邮箱 A
+#### iPhone 导入方法
 
-S2：电脑上使用邮箱 B 发送生成的附件 courses.ics 至邮箱 B
+1. 在 iPhone 的邮件 APP 中绑定您的邮箱
+2. 将生成的 `courses.ics` 文件通过邮件发送至该邮箱
+3. 在 iPhone 上打开邮件，点击附件并选择"添加到日历"
 
-S3：iPhone 打开邮箱 APP 点开附件的 ics 添加入日历即可
+#### 其他设备
+
+-   Android: 下载 ICS 文件后导入 Google Calendar 或其他日历应用
+-   电脑: 可直接导入到 Outlook、Google Calendar 等应用

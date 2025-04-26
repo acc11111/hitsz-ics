@@ -1,7 +1,7 @@
-from login import login 
-from load_data import load_data 
-from save_as_ics import save_as_ics
-import json
+from auth.login import login 
+from data.load_data import load_data 
+from data.save_as_ics import save_as_ics
+from mail_service.send_email import send_email
 
 if __name__ == "__main__":
     
@@ -22,7 +22,6 @@ if __name__ == "__main__":
     is_send_email = input("是否需要使用邮件发送课程安排？(y/n):> ")
     if is_send_email.lower() == 'y':
         # 发送邮件
-        from send_email import send_email
         send_email()
     else:
         print("课程安排已保存为courses.ics，邮件发送已跳过。")
