@@ -9,6 +9,7 @@ end_date = datetime(2025, 6, 22)
 ```
 
 同时添加了提前 15 分钟提醒功能后会出现
+添加了锁定地址为哈尔滨工业大学深圳校区
 
 ```bash
  FutureWarning: Behaviour of str(Component) will change in version 0.9 to only return a short description, NOT the ics representation. Use the explicit Component.serialize() to get the ics representation.
