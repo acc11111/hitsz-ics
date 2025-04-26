@@ -62,8 +62,8 @@ def login(username, password):
         salt_element = soup.find('input', {'id': 'pwdEncryptSalt'})
         salt = salt_element['value'] if salt_element else None
 
-        print(f"Execution: {execution}")
-        print(f"Salt: {salt}")
+        # print(f"Execution: {execution}")
+        # print(f"Salt: {salt}")
 
         # 准备需要提交的登录数据
         login_data = {

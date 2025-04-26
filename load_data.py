@@ -12,7 +12,9 @@ def load_data(session):
         date_list.append(current_date.strftime("%Y-%m-%d"))
         current_date += timedelta(days=1)
 
-    print(f"从{date_list[0]}到{date_list[-1]}一共获取了{len(date_list)}天的数据")
+    print(f"准备从{date_list[0]}到{date_list[-1]}获取{len(date_list)}天的数据")
+    print("如果需要修改获取数据的日期范围，请修改load_data.py中的start_date和end_date")
+    print("正在获取数据，请稍等...")
 
     data = []
     for date in date_list:
@@ -21,6 +23,7 @@ def load_data(session):
         }
         response = session.post(query_url, data=formdata)
         data.extend(response.json())
-    with open('data.json', 'w') as json_file:
-        json.dump(data, json_file, ensure_ascii=False, indent=4)
+    # with open('data.json', 'w') as json_file:
+    #     json.dump(data, json_file, ensure_ascii=False, indent=4)
+    print("数据获取完成")
     return data
